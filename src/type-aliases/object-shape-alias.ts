@@ -1,10 +1,10 @@
-type Person = {
+type Person4 = {
   readonly id: number;
   name: string;
   nickname?: string;
 }; // TODO
 
-function display(p: Person): string {
+function display(p: Person4): string {
   // TODO: return formatted string based on presence of nickname
   return p.nickname ? `${p.name} (${p.nickname})` : `${p.name}`;
 }
