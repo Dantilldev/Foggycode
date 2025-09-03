@@ -1,52 +1,52 @@
-// Nummer eller Text Storlek
-
-// Skapa en funktion som beräknar "storleken" på ett värde som kan vara antingen en sträng eller ett nummer.
-//
-// Skriv funktionen sizeOf(value: string | number): number
-// - Om value är en sträng, returnera dess längd (.length)
-// - Om value är ett nummer, returnera numret direkt
-// - Hantera tomma strängar korrekt (storlek 0)
-//
-// Varför är detta användbart? För att i verkliga program behöver vi ofta hantera olika typer
-// av data från användare eller API:er, och då måste vi kunna avgöra vilken typ
-// av data vi har fått för att kunna bearbeta den korrekt.
-
-function sizeOf2(value: string | number): number {
+// Bygg en egen typvakt (Custom Guard)
+function isNonEmptyString(v: unknown): v is string {
   // TODO
-  if (typeof value === "string") {
-    return value.length;
-  }
-
-  if (typeof value === "number") {
-    return value;
-  }
-  return 0;
+  return typeof v === "string" && v.trim().length > 0;
 }
 
-// Testkod:
-console.log(sizeOf2("hej")); // 3 (längden av strängen "hej")
-console.log(sizeOf2("")); // 0 (längden av en tom sträng)
-console.log(sizeOf2(42)); // 42 (numret returneras direkt)
-console.log(sizeOf2(-10)); // -10 (numret returneras direkt)
+function joinNonEmpty(parts: unknown[]): string {
+  // TODO
 
-// I TypeScript kan vi använda "typeof" för att avgöra vilken typ en variabel har när programmet körs.
-// Detta kallas "type narrowing" (typinskränkning) och är mycket användbart.
-//
-// Varför är det viktigt? Jo, för att när vi har en union typ (t.ex. string | number),
-// måste vi vara säkra på vilken typ vi har innan vi använder typ-specifika egenskaper.
-//
-// Till exempel:
-// - En sträng har egenskapen .length (hur många tecken den innehåller)
-// - Ett nummer har inga sådana egenskaper
-//
-// Så här kan vi använda typeof för att säkert hantera både strängar och nummer:
-//
-// function describe(v: string | number) {
-//   if (typeof v === "string") {
-//     // Nu vet TypeScript att v är en sträng här
-//     return "text:" + v.length;  // Vi kan använda .length säkert
-//   }
-//   // TypeScript förstår att v måste vara ett nummer här
-//   return "num:" + v;  // Vi kan använda v direkt
+  const stringParts = parts.filter(isNonEmptyString);
+
+  const trimmedParts = stringParts.map((s) => s.trim());
+
+  const result = trimmedParts.join(",");
+
+  return result;
+}
+
+// Testkod för isNonEmptyString:
+console.log(isNonEmptyString("Hej")); // true
+console.log(isNonEmptyString("")); // false
+console.log(isNonEmptyString("   ")); // false (bara mellanslag)
+console.log(isNonEmptyString(123)); //se (inte en sträng)
+console.log(isNonEmptyString(null)); // false (inte en sträng)
+console.log(isNonEmptyString(undefined)); // false (inte en sträng)
+
+// Testkod för joinNonEmpty:
+console.log(joinNonEmpty(["Hej", "världen"])); // "Hej,världen"
+console.log(joinNonEmpty(["Hej", "", "där"])); // "Hej,där"
+console.log(joinNonEmpty(["  Hej  ", "  ", "  där  "])); // "Hej,där" (trimmat)
+console.log(joinNonEmpty([123, "text", null, "mer"]));
+// "text,mer" (bara strängar)
+console.log(joinNonEmpty([]));
+
+// En egen typvakt låter dig uttrycka din egen kontroll och lära ut den till TypeScript.
+// Använd returtypen value is Type för att snäva in typen vid anropsställen.
+// Håll runtime-kontrollen enkel och i linje med typen du påstår.
+// VARFÖR? Detta gör att TypeScript kan förstå och hjälpa dig med typkontroll även för egna regler,
+// inte bara de inbyggda.
+
+// function isNum(x: unknown): x is number {
+//   return typeof x === "number";
 // }
-//
+// Filtrera en array av okända värden till icke-tomma strängar, och slå sedan ihop dem för visning.
+
+// Din uppgift
+// Skapa en typvakt och använd den för att filtrera och slå ihop värden.
+
+// Skriv funktionen isNonEmptyString(v: unknown): v is string som returnerar true endast för strängar där v.trim().length > 0.
+// Skriv funktionen joinNonEmpty(parts: unknown[]): string.
+// joinNonEmpty ska endast behålla värden där isNonEmptyString returnerar true, sedan trim() varje och slå ihop med ','.
+// Mutera inte input-arrayen.
