@@ -7,9 +7,9 @@ function tag(level: Level, msg: string): string {
   return `[${level.toLocaleUpperCase()}] ${msg}`;
 }
 
-console.log(tag("info", "System started")); // Förväntat: [INFO] System started
-console.log(tag("warn", "Low battery")); // Förväntat: [WARN] Low battery
-console.log(tag("error", "Crash!")); // Förväntat: [ERROR]
+console.log(tag("info", "System started")); // [INFO] System started
+console.log(tag("warn", "Low battery")); //[WARN] Low battery
+console.log(tag("error", "Crash!")); // [ERROR]
 
 // Levels with as const
 // String literals widen to string unless you freeze them. as const keeps exact literals and makes arrays/objects read-only. From a literal array, you can build a union of its items.

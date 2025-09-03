@@ -21,3 +21,13 @@ console.log(sumUnknown([1, 2, 3]));
 // Treat input as number[] using an assertion and return the sum.
 // If the array is empty, return 0.
 // Do not mutate the array.
+
+
+/// alt:  let sum = 0;
+
+//  const inputNum = input as number[]
+
+//  for(let i = 0; i < inputNum.length ; i++){
+//     sum += inputNum[i]
+//  }
+//  return sum

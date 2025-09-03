@@ -1,12 +1,10 @@
 function firstLength(list: unknown): number {
   // TODO
 
-  if (Array.isArray(list) && list.length > 0) {
-    const first = list[1];
-
-    if (typeof first === "string" || Array.isArray(first)) {
-      return first.length;
-    }
+  if (Array.isArray(list)) {
+    const listStrArr = list as string[];
+    const first = listStrArr[0];
+    return typeof first === "string" ? first.length : 0;
   }
   return 0;
 }

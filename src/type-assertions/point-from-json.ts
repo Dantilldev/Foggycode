@@ -18,8 +18,7 @@ function manhattan(p: Point): number {
 
 const p = pointFromJson('{"x":1,"y":1}');
 
-console.log(p); // Förväntat: { x: 3, y: -4 }
-console.log(manhattan(p)); // Förväntat: 2
+console.log(manhattan(p)); // 2
 // Point from JSON
 // JSON.parse returns any. The compiler cannot know what shape you expect. You can assert the parsed value to the interface you need.
 

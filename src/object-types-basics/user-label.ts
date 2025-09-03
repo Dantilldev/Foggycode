@@ -1,6 +1,6 @@
-type Account = {id: number; name: string};
+type Account2 = {id: number; name: string};
 
-function userLabel(user: Account): string {
+function userLabel(user: Account2): string {
   return "id:" + user.id + " name:" + user.name;
 }
 
